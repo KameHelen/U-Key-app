@@ -29,6 +29,12 @@
             android:exported="false"
             android:theme="@style/Theme.LoginLayout" />
 
+        <!-- HomeActivity: pantalla principal tras el login -->
+        <activity
+            android:name=".HomeActivity"
+            android:exported="false"
+            android:theme="@style/Theme.LoginLayout" />
+
     </application>
 
 </manifest>

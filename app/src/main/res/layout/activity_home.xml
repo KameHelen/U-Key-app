@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0D0B18">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- HEADER / NAVBAR -->
+        <!-- HEADER / NAVBAR -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="96dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingStart="24dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="14dp"
+            android:background="#0A0815">
+
+            <ImageView
+                android:id="@+id/imageViewLogo"
+                android:layout_width="120dp"
+                android:layout_height="80dp"
+                android:src="@drawable/logo_ukey"
+                android:contentDescription="Logo U-KEY" />
+
+            <!-- Espaciador que empuja el botón a la derecha -->
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/btnCerrarSesion"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:text="Salir"
+                android:textSize="12sp"
+                android:textColor="#C084E8"
+                android:backgroundTint="#1E1433"
+                android:stateListAnimator="@null" />
+
+        </LinearLayout>
+
+        <!-- HERO -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:paddingTop="52dp"
+            android:paddingBottom="52dp"
+            android:paddingStart="32dp"
+            android:paddingEnd="32dp"
+            android:background="#13102A">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tu tienda de accesorios gaming"
+                android:textColor="#F0EAF8"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.01"
+                android:gravity="center"
+                android:maxLines="1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Teclados mecánicos, ratones y más"
+                android:textColor="#7A6E94"
+                android:textSize="14sp"
+                android:letterSpacing="0.02"
+                android:layout_marginTop="10dp"
+                android:gravity="center" />
+
+        </LinearLayout>
+
+        <!-- SECCIÓN CATEGORÍAS -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Categorías"
+            android:textColor="#F0EAF8"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.04"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="28dp"
+            android:layout_marginBottom="14dp" />
+
+        <!-- TARJETAS CATEGORÍAS -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:weightSum="3">
+
+            <!-- Teclados -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:layout_margin="6dp"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:background="@drawable/card_background">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="⌨️"
+                    android:textSize="28sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Teclados"
+                    android:textColor="#C084E8"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.04"
+                    android:layout_marginTop="6dp" />
+
+            </LinearLayout>
+
+            <!-- Ratones -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:layout_margin="6dp"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:background="@drawable/card_background">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🖱️"
+                    android:textSize="28sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ratones"
+                    android:textColor="#C084E8"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.04"
+                    android:layout_marginTop="6dp" />
+
+            </LinearLayout>
+
+            <!-- Accesorios -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:layout_margin="6dp"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:background="@drawable/card_background">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🎮"
+                    android:textSize="28sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Accesorios"
+                    android:textColor="#C084E8"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.04"
+                    android:layout_marginTop="6dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- FOOTER -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="© 2026 U-Key"
+            android:textColor="#4A3F62"
+            android:textSize="11sp"
+            android:letterSpacing="0.02"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_marginTop="48dp"
+            android:layout_marginBottom="28dp" />
+
+    </LinearLayout>
+
+</ScrollView>

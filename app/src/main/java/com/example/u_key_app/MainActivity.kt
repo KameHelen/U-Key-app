@@ -22,7 +22,6 @@ class MainActivity : AppCompatActivity() {
 
         dbHelper = miSQLiteHelper(this)
 
-        // Aplica padding de sistema a la vista principal
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(android.R.id.content)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -44,9 +43,9 @@ class MainActivity : AppCompatActivity() {
                 val exists = dbHelper.verificarUsuario(email, pass)
                 if (exists) {
                     Toast.makeText(this, "Inicio de sesión correcto", Toast.LENGTH_SHORT).show()
-                    // Aquí iría el Intent al catálogo cuando esté creado:
-                    // val intent = Intent(this, CatalogoActivity::class.java)
-                    // startActivity(intent)
+                    val intent = Intent(this, HomeActivity::class.java)
+                    startActivity(intent)
+                    finish()
                 } else {
                     Toast.makeText(this, "Email o contraseña incorrectos", Toast.LENGTH_SHORT).show()
                 }

@@ -4,53 +4,65 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0D0D15"
+    android:background="#0D0B18"
     tools:context=".CarritoActivity">
 
-    <!-- Header -->
-    <RelativeLayout
+    <!-- HEADER / NAVBAR -->
+    <LinearLayout
         android:id="@+id/header"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="#0D0D15"
-        android:paddingHorizontal="16dp"
-        app:layout_topToTopOf="parent">
+        android:layout_width="0dp"
+        android:layout_height="96dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="24dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="14dp"
+        android:background="#0A0815"
+        app:layout_topToTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <ImageButton
             android:id="@+id/btnBack"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:layout_centerVertical="true"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/ic_back_white"
-            app:tint="#A020F0" />
+            app:tint="#C084E8" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
+            android:layout_marginStart="16dp"
             android:text="MI CARRITO"
-            android:textColor="#FFFFFF"
-            android:textSize="22sp"
+            android:textColor="#F0EAF8"
+            android:textSize="20sp"
             android:textStyle="bold"
-            android:letterSpacing="0.1" />
+            android:letterSpacing="0.04" />
 
         <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_alignParentBottom="true"
-            android:background="#A020F0" />
-    </RelativeLayout>
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+            
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:src="@drawable/logo_ukey"
+            android:contentDescription="Mini Logo" />
+    </LinearLayout>
 
     <!-- List -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvCarrito"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
-        android:padding="8dp"
+        android:paddingHorizontal="16dp"
         app:layout_constraintBottom_toTopOf="@+id/footer"
-        app:layout_constraintTop_toBottomOf="@id/header" />
+        app:layout_constraintTop_toBottomOf="@id/header"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <!-- Empty State -->
     <TextView
@@ -58,7 +70,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Tu carrito está vacío"
-        android:textColor="#888888"
+        android:textColor="#7A6E94"
         android:textSize="18sp"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/footer"
@@ -69,17 +81,19 @@
     <!-- Footer -->
     <androidx.cardview.widget.CardView
         android:id="@+id/footer"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:cardBackgroundColor="#13131D"
+        app:cardBackgroundColor="#16112B"
         app:cardElevation="16dp"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="20dp">
+            android:padding="24dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -90,9 +104,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="TOTAL"
-                    android:textColor="#FFFFFF"
+                    android:textColor="#7A6E94"
                     android:textSize="16sp"
-                    android:letterSpacing="0.05" />
+                    android:letterSpacing="0.05"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tvTotal"
@@ -100,8 +115,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:text="0.00 €"
-                    android:textColor="#A020F0"
-                    android:textSize="24sp"
+                    android:textColor="#C084E8"
+                    android:textSize="26sp"
                     android:textStyle="bold" />
             </RelativeLayout>
 
@@ -109,13 +124,15 @@
                 android:id="@+id/btnFinalizarCompra"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:background="@drawable/btn_neon_purple"
+                android:backgroundTint="#1E1433"
                 android:text="FINALIZAR COMPRA"
                 android:textAllCaps="true"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"
+                android:textColor="#C084E8"
+                android:textSize="16sp"
                 android:textStyle="bold"
-                app:cornerRadius="4dp" />
+                android:letterSpacing="0.04"
+                app:cornerRadius="20dp"
+                android:stateListAnimator="@null" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

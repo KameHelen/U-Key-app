@@ -3,8 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    app:cardCornerRadius="12dp"
+    android:layout_marginHorizontal="8dp"
+    android:layout_marginVertical="6dp"
+    app:cardCornerRadius="20dp"
     app:cardElevation="0dp"
     app:cardBackgroundColor="@android:color/transparent">
 
@@ -12,13 +13,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="12dp"
+        android:padding="16dp"
         android:background="@drawable/bg_item_cart">
 
         <ImageView
             android:id="@+id/ivProducto"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
             android:scaleType="centerCrop"
             android:src="@android:drawable/ic_menu_gallery" />
 
@@ -26,7 +27,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginStart="12dp"
+            android:layout_marginStart="16dp"
             android:orientation="vertical">
 
             <TextView
@@ -34,62 +35,66 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Nombre del Producto"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textColor="#F0EAF8"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.02" />
 
             <TextView
                 android:id="@+id/tvPrecioProducto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="0.00 €"
-                android:textColor="#A020F0"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textColor="#C084E8"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:layout_marginTop="2dp" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="10dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <ImageButton
                     android:id="@+id/btnRestar"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:backgroundTint="#1E1433"
+                    android:background="@android:color/transparent"
                     android:src="@android:drawable/ic_input_delete"
-                    app:tint="#A020F0" />
+                    app:tint="#C084E8" />
 
                 <TextView
                     android:id="@+id/tvCantidad"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="12dp"
+                    android:layout_marginHorizontal="14dp"
                     android:text="1"
-                    android:textColor="#FFFFFF"
-                    android:textSize="16sp"
+                    android:textColor="#F0EAF8"
+                    android:textSize="15sp"
                     android:textStyle="bold" />
 
                 <ImageButton
                     android:id="@+id/btnSumar"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:backgroundTint="#1E1433"
+                    android:background="@android:color/transparent"
                     android:src="@android:drawable/ic_input_add"
-                    app:tint="#A020F0" />
+                    app:tint="#C084E8" />
             </LinearLayout>
         </LinearLayout>
 
         <ImageButton
             android:id="@+id/btnEliminar"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             android:layout_gravity="top"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@android:drawable/ic_menu_delete"
-            app:tint="#CCFFFFFF" />
+            app:tint="#7A6E94" />
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

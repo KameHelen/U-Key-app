@@ -48,6 +48,39 @@ class miSQLiteHelper(context: Context) : SQLiteOpenHelper(context, "ukey.db", nu
 
         // Insertar categorías iniciales
         insertarCategoriasIniciales(db)
+        // INSERTAR PRODUCTOS Y DATOS DE PRUEBA
+        insertarDatosPrueba(db)
+    }
+
+    private fun insertarDatosPrueba(db: SQLiteDatabase?) {
+        // Insertar productos de prueba
+        val productos = arrayOf(
+            arrayOf("Teclado U-Key Pro", "Teclado mecánico RGB con switches brown.", "89.99", "10", "teclado_pro", "1"),
+            arrayOf("Ratón U-Key Speed", "Ratón ultra ligero 8000 DPI.", "45.50", "25", "raton_speed", "2"),
+            arrayOf("Alfombrilla XL", "Superficie de tela de alta precisión.", "19.99", "50", "alfombrilla_xl", "3")
+        )
+
+        for (prod in productos) {
+            val v = ContentValues().apply {
+                put("nombre", prod[0])
+                put("descripcion", prod[1])
+                put("precio", prod[2].toDouble())
+                put("stock", prod[3].toInt())
+                put("imagen", prod[4])
+                put("categoria_id", prod[5].toInt())
+            }
+            val prodId = db?.insert("productos", null, v)
+
+            // Añadir al carrito para el usuario 1 (si existe)
+            if (prodId != null && prodId != -1L) {
+                val cartValues = ContentValues().apply {
+                    put("usuario_id", 1) // Asumimos usuario 1 para pruebas
+                    put("producto_id", prodId)
+                    put("cantidad", 1)
+                }
+                db?.insert("carrito", null, cartValues)
+            }
+        }
     }
 
     private fun insertarCategoriasIniciales(db: SQLiteDatabase?) {
@@ -99,5 +132,91 @@ class miSQLiteHelper(context: Context) : SQLiteOpenHelper(context, "ukey.db", nu
         cursor.close()
         db.close()
         return exists
+    }
+
+    // --- Métodos para el Carrito ---
+
+    fun obtenerCarrito(usuarioId: Int): List<CartItem> {
+        val lista = mutableListOf<CartItem>()
+        val db = this.readableDatabase
+        val query = """
+            SELECT c.id, p.nombre, p.precio, c.cantidad, p.imagen, p.id as producto_id
+            FROM carrito c
+            JOIN productos p ON c.producto_id = p.id
+            WHERE c.usuario_id = ?
+        """.trimIndent()
+
+        val cursor = db.rawQuery(query, arrayOf(usuarioId.toString()))
+
+        if (cursor.moveToFirst()) {
+            do {
+                val item = CartItem(
+                    cursor.getInt(cursor.getColumnIndexOrThrow("id")),
+                    cursor.getInt(cursor.getColumnIndexOrThrow("producto_id")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("nombre")),
+                    cursor.getDouble(cursor.getColumnIndexOrThrow("precio")),
+                    cursor.getInt(cursor.getColumnIndexOrThrow("cantidad")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("imagen"))
+                )
+                lista.add(item)
+            } while (cursor.moveToNext())
+        }
+        cursor.close()
+        db.close()
+        return lista
+    }
+
+    fun agregarAlCarrito(usuarioId: Int, productoId: Int, cantidad: Int): Long {
+        val db = this.writableDatabase
+        
+        // Verificar si ya existe
+        val cursor = db.rawQuery(
+            "SELECT id, cantidad FROM carrito WHERE usuario_id = ? AND producto_id = ?",
+            arrayOf(usuarioId.toString(), productoId.toString())
+        )
+        
+        var result: Long
+        if (cursor.moveToFirst()) {
+            val id = cursor.getInt(cursor.getColumnIndexOrThrow("id"))
+            val cantActual = cursor.getInt(cursor.getColumnIndexOrThrow("cantidad"))
+            val values = ContentValues().apply {
+                put("cantidad", cantActual + cantidad)
+            }
+            result = db.update("carrito", values, "id = ?", arrayOf(id.toString())).toLong()
+        } else {
+            val values = ContentValues().apply {
+                put("usuario_id", usuarioId)
+                put("producto_id", productoId)
+                put("cantidad", cantidad)
+            }
+            result = db.insert("carrito", null, values)
+        }
+        cursor.close()
+        db.close()
+        return result
+    }
+
+    fun eliminarDelCarrito(id: Int): Int {
+        val db = this.writableDatabase
+        val result = db.delete("carrito", "id = ?", arrayOf(id.toString()))
+        db.close()
+        return result
+    }
+
+    fun actualizarCantidadCarrito(id: Int, cantidad: Int): Int {
+        val db = this.writableDatabase
+        val values = ContentValues().apply {
+            put("cantidad", cantidad)
+        }
+        val result = db.update("carrito", values, "id = ?", arrayOf(id.toString()))
+        db.close()
+        return result
+    }
+
+    fun vaciarCarrito(usuarioId: Int): Int {
+        val db = this.writableDatabase
+        val result = db.delete("carrito", "usuario_id = ?", arrayOf(usuarioId.toString()))
+        db.close()
+        return result
     }
 }

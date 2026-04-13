@@ -29,6 +29,13 @@
             android:exported="false"
             android:theme="@style/Theme.LoginLayout" />
 
+        <!-- CarritoActivity: pantalla del carrito de compra -->
+        <activity
+            android:name=".CarritoActivity"
+            android:exported="false"
+            android:label="Carrito"
+            android:theme="@style/Theme.LoginLayout" />
+
     </application>
 
 </manifest>

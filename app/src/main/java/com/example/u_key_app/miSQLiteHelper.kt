@@ -5,7 +5,7 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
-class miSQLiteHelper(context: Context) : SQLiteOpenHelper(context, "ukey.db", null, 1) {
+class miSQLiteHelper(context: Context) : SQLiteOpenHelper(context, "ukey.db", null, 2) {
 
     override fun onCreate(db: SQLiteDatabase?) {
         // Tabla Categorías
@@ -48,39 +48,6 @@ class miSQLiteHelper(context: Context) : SQLiteOpenHelper(context, "ukey.db", nu
 
         // Insertar categorías iniciales
         insertarCategoriasIniciales(db)
-        // INSERTAR PRODUCTOS Y DATOS DE PRUEBA
-        insertarDatosPrueba(db)
-    }
-
-    private fun insertarDatosPrueba(db: SQLiteDatabase?) {
-        // Insertar productos de prueba
-        val productos = arrayOf(
-            arrayOf("Teclado U-Key Pro", "Teclado mecánico RGB con switches brown.", "89.99", "10", "teclado_pro", "1"),
-            arrayOf("Ratón U-Key Speed", "Ratón ultra ligero 8000 DPI.", "45.50", "25", "raton_speed", "2"),
-            arrayOf("Alfombrilla XL", "Superficie de tela de alta precisión.", "19.99", "50", "alfombrilla_xl", "3")
-        )
-
-        for (prod in productos) {
-            val v = ContentValues().apply {
-                put("nombre", prod[0])
-                put("descripcion", prod[1])
-                put("precio", prod[2].toDouble())
-                put("stock", prod[3].toInt())
-                put("imagen", prod[4])
-                put("categoria_id", prod[5].toInt())
-            }
-            val prodId = db?.insert("productos", null, v)
-
-            // Añadir al carrito para el usuario 1 (si existe)
-            if (prodId != null && prodId != -1L) {
-                val cartValues = ContentValues().apply {
-                    put("usuario_id", 1) // Asumimos usuario 1 para pruebas
-                    put("producto_id", prodId)
-                    put("cantidad", 1)
-                }
-                db?.insert("carrito", null, cartValues)
-            }
-        }
     }
 
     private fun insertarCategoriasIniciales(db: SQLiteDatabase?) {

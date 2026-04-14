@@ -3,7 +3,6 @@ package com.example.u_key_app
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -26,7 +25,7 @@ class RegisterActivity : AppCompatActivity() {
             insets
         }
 
-        val buttonBack = findViewById<ImageButton>(R.id.buttonBack)
+        val buttonBack = findViewById<Button>(R.id.buttonBack)
         val buttonRegister = findViewById<Button>(R.id.buttonRegister)
         val etNombre = findViewById<EditText>(R.id.editTextNombre)
         val etApellidos = findViewById<EditText>(R.id.editTextApellidos)

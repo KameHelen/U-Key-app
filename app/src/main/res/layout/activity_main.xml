@@ -20,13 +20,15 @@
 
     <!-- Campo Login -->
     <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         app:hintTextColor="#A020F0"
         app:boxStrokeColor="#A020F0"
-        app:boxStrokeWidth="2dp"
-        app:boxStrokeWidthFocused="3dp">
+        app:boxStrokeWidth="1.5dp"
+        app:boxStrokeWidthFocused="2.5dp"
+        app:boxBackgroundColor="#1C1535">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextLogin"
@@ -35,21 +37,23 @@
             android:hint="Login"
             android:textColor="#FFFFFF"
             android:textSize="16sp"
-            android:inputType="text"
-            android:backgroundTint="#0D0D15" />
+            android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Campo Password -->
     <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
         app:hintTextColor="#A020F0"
         app:boxStrokeColor="#A020F0"
-        app:boxStrokeWidth="2dp"
-        app:boxStrokeWidthFocused="3dp"
+        app:boxStrokeWidth="1.5dp"
+        app:boxStrokeWidthFocused="2.5dp"
         app:passwordToggleEnabled="true"
-        app:passwordToggleDrawable="@drawable/ic_eye_purple">
+        app:passwordToggleDrawable="@drawable/ic_eye_purple"
+        app:passwordToggleTint="#7A6E94"
+        app:boxBackgroundColor="#1C1535">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextPassword"
@@ -58,8 +62,7 @@
             android:hint="Password"
             android:textColor="#FFFFFF"
             android:textSize="16sp"
-            android:inputType="textPassword"
-            android:backgroundTint="#0D0D15" />
+            android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Botón Inicio de Sesión -->

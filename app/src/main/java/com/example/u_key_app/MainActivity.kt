@@ -40,10 +40,11 @@ class MainActivity : AppCompatActivity() {
             if (email.isEmpty() || pass.isEmpty()) {
                 Toast.makeText(this, "Por favor, introduce tus credenciales", Toast.LENGTH_SHORT).show()
             } else {
-                val exists = dbHelper.verificarUsuario(email, pass)
-                if (exists) {
+                val userId = dbHelper.obtenerIdUsuario(email, pass)
+                if (userId != -1) {
                     Toast.makeText(this, "Inicio de sesión correcto", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this, HomeActivity::class.java)
+                    intent.putExtra("usuario_id", userId)
                     startActivity(intent)
                     finish()
                 } else {

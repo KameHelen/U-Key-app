@@ -36,8 +36,13 @@ class CarritoAdapter(
         holder.tvPrecio.text = String.format("%.2f €", item.precio)
         holder.tvCantidad.text = item.cantidad.toString()
 
-        // Aquí podrías cargar la imagen con Glide o Coil si tuvieras las URLs/Resources
-        // Por ahora usamos el placeholder del XML
+        // Cargar imagen del producto
+        val ctx = holder.itemView.context
+        val resId = if (!item.imagen.isNullOrEmpty())
+            ctx.resources.getIdentifier(item.imagen, "drawable", ctx.packageName)
+        else 0
+        if (resId != 0) holder.ivProducto.setImageResource(resId)
+        else holder.ivProducto.setImageResource(R.drawable.ic_producto_placeholder)
 
         holder.btnSumar.setOnClickListener {
             onCantidadChanged(item, item.cantidad + 1)

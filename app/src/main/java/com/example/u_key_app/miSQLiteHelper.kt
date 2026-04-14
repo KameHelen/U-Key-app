@@ -48,6 +48,8 @@ class miSQLiteHelper(context: Context) : SQLiteOpenHelper(context, "ukey.db", nu
 
         // Insertar categorías iniciales
         insertarCategoriasIniciales(db)
+        // Insertar productos iniciales
+        insertarProductosIniciales(db)
     }
 
     private fun insertarCategoriasIniciales(db: SQLiteDatabase?) {
@@ -63,6 +65,24 @@ class miSQLiteHelper(context: Context) : SQLiteOpenHelper(context, "ukey.db", nu
                 put("descripcion", cat[1])
             }
             db?.insert("categorias", null, values)
+        }
+    }
+
+    private fun insertarProductosIniciales(db: SQLiteDatabase?) {
+        val productos = arrayOf(
+            arrayOf("Teclado Mecánico Pro", "Teclado mecánico RGB con switches Cherry MX Red. Respuesta ultrarrápida para gaming.", "89.99", "15", "1", "producto_teclado"),
+            arrayOf("Ratón Gaming RGB", "Ratón gaming con sensor óptico de 16000 DPI y 7 botones programables.", "49.99", "30", "2", "producto_raton")
+        )
+        for (p in productos) {
+            val values = ContentValues().apply {
+                put("nombre", p[0])
+                put("descripcion", p[1])
+                put("precio", p[2].toDouble())
+                put("stock", p[3].toInt())
+                put("categoria_id", p[4].toInt())
+                put("imagen", p[5])
+            }
+            db?.insert("productos", null, values)
         }
     }
 
@@ -92,13 +112,57 @@ class miSQLiteHelper(context: Context) : SQLiteOpenHelper(context, "ukey.db", nu
     fun verificarUsuario(email: String, pass: String): Boolean {
         val db = this.readableDatabase
         val cursor = db.rawQuery(
-            "SELECT * FROM usuarios WHERE email = ? AND password = ?",
+            "SELECT id FROM usuarios WHERE email = ? AND password = ?",
             arrayOf(email, pass)
         )
         val exists = cursor.count > 0
         cursor.close()
         db.close()
         return exists
+    }
+
+    fun obtenerIdUsuario(email: String, pass: String): Int {
+        val db = this.readableDatabase
+        val cursor = db.rawQuery(
+            "SELECT id FROM usuarios WHERE email = ? AND password = ?",
+            arrayOf(email, pass)
+        )
+        var id = -1
+        if (cursor.moveToFirst()) {
+            id = cursor.getInt(cursor.getColumnIndexOrThrow("id"))
+        }
+        cursor.close()
+        db.close()
+        return id
+    }
+
+    // --- Métodos para Productos ---
+
+    fun obtenerProductosDestacados(): List<Producto> {
+        val lista = mutableListOf<Producto>()
+        val db = this.readableDatabase
+        val cursor = db.rawQuery(
+            "SELECT id, nombre, descripcion, precio, stock, imagen, categoria_id FROM productos LIMIT 2",
+            null
+        )
+        if (cursor.moveToFirst()) {
+            do {
+                lista.add(
+                    Producto(
+                        cursor.getInt(cursor.getColumnIndexOrThrow("id")),
+                        cursor.getString(cursor.getColumnIndexOrThrow("nombre")),
+                        cursor.getString(cursor.getColumnIndexOrThrow("descripcion")),
+                        cursor.getDouble(cursor.getColumnIndexOrThrow("precio")),
+                        cursor.getInt(cursor.getColumnIndexOrThrow("stock")),
+                        cursor.getString(cursor.getColumnIndexOrThrow("imagen")),
+                        cursor.getInt(cursor.getColumnIndexOrThrow("categoria_id"))
+                    )
+                )
+            } while (cursor.moveToNext())
+        }
+        cursor.close()
+        db.close()
+        return lista
     }
 
     // --- Métodos para el Carrito ---

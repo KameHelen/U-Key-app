@@ -17,12 +17,13 @@ class CarritoActivity : AppCompatActivity() {
     private lateinit var adapter: CarritoAdapter
     private lateinit var tvTotal: TextView
     private lateinit var tvVacio: TextView
-    private var usuarioId = 1 // ID de usuario por defecto para pruebas
+    private var usuarioId = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_carrito)
 
+        usuarioId = intent.getIntExtra("usuario_id", -1)
         dbHelper = miSQLiteHelper(this)
 
         rvCarrito = findViewById(R.id.rvCarrito)

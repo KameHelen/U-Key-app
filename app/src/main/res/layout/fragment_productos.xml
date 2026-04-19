@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <!-- Mensaje opcional si no hay productos -->
+    <TextView
+        android:id="@+id/tvMensajeSinProductos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cargando..."
+        android:textColor="#F0EAF8"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:layout_marginBottom="20dp"
+        android:visibility="gone" /> <!-- Oculto por defecto -->
+
+    <!-- TARJETA PRODUCTO 1 -->
+    <LinearLayout
+        android:id="@+id/cardProducto1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="12dp"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:background="@drawable/card_background"
+        android:visibility="gone"> <!-- Oculto por defecto, se mostrará si hay producto -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:id="@+id/ivProducto1"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:src="@drawable/ic_producto_placeholder"
+                android:scaleType="centerCrop"
+                android:contentDescription="Imagen producto 1" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="12dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvNombreProducto1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nombre producto"
+                    android:textColor="#F0EAF8"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvDescProducto1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Descripción"
+                    android:textColor="#7A6E94"
+                    android:textSize="12sp"
+                    android:layout_marginTop="2dp" />
+
+                <TextView
+                    android:id="@+id/tvPrecioProducto1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="0.00 €"
+                    android:textColor="#C084E8"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="6dp" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnAnadirProducto1"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:text="Añadir al carrito"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:background="@drawable/btn_neon_purple"
+            android:layout_marginTop="14dp"
+            android:stateListAnimator="@null" />
+
+    </LinearLayout>
+
+    <!-- TARJETA PRODUCTO 2 -->
+    <LinearLayout
+        android:id="@+id/cardProducto2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="12dp"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:background="@drawable/card_background"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:id="@+id/ivProducto2"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:src="@drawable/ic_producto_placeholder"
+                android:scaleType="centerCrop"
+                android:contentDescription="Imagen producto 2" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="12dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvNombreProducto2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nombre producto"
+                    android:textColor="#F0EAF8"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvDescProducto2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Descripción"
+                    android:textColor="#7A6E94"
+                    android:textSize="12sp"
+                    android:layout_marginTop="2dp" />
+
+                <TextView
+                    android:id="@+id/tvPrecioProducto2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="0.00 €"
+                    android:textColor="#C084E8"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="6dp" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnAnadirProducto2"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:text="Añadir al carrito"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:background="@drawable/btn_neon_purple"
+            android:layout_marginTop="14dp"
+            android:stateListAnimator="@null" />
+
+    </LinearLayout>
+
+    <!-- TARJETA PRODUCTO 3 -->
+    <LinearLayout
+        android:id="@+id/cardProducto3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="12dp"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:background="@drawable/card_background"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:id="@+id/ivProducto3"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:src="@drawable/ic_producto_placeholder"
+                android:scaleType="centerCrop"
+                android:contentDescription="Imagen producto 3" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="12dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvNombreProducto3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nombre producto"
+                    android:textColor="#F0EAF8"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvDescProducto3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Descripción"
+                    android:textColor="#7A6E94"
+                    android:textSize="12sp"
+                    android:layout_marginTop="2dp" />
+
+                <TextView
+                    android:id="@+id/tvPrecioProducto3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="0.00 €"
+                    android:textColor="#C084E8"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="6dp" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnAnadirProducto3"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:text="Añadir al carrito"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:background="@drawable/btn_neon_purple"
+            android:layout_marginTop="14dp"
+            android:stateListAnimator="@null" />
+
+    </LinearLayout>
+
+    <!-- TARJETA PRODUCTO 4 -->
+    <LinearLayout
+        android:id="@+id/cardProducto4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="12dp"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:background="@drawable/card_background"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:id="@+id/ivProducto4"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:src="@drawable/ic_producto_placeholder"
+                android:scaleType="centerCrop"
+                android:contentDescription="Imagen producto 4" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="12dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvNombreProducto4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nombre producto"
+                    android:textColor="#F0EAF8"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvDescProducto4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Descripción"
+                    android:textColor="#7A6E94"
+                    android:textSize="12sp"
+                    android:layout_marginTop="2dp" />
+
+                <TextView
+                    android:id="@+id/tvPrecioProducto4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="0.00 €"
+                    android:textColor="#C084E8"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="6dp" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnAnadirProducto4"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:text="Añadir al carrito"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:background="@drawable/btn_neon_purple"
+            android:layout_marginTop="14dp"
+            android:stateListAnimator="@null" />
+
+    </LinearLayout>
+
+</LinearLayout>

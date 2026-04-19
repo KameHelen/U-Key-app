@@ -141,6 +141,7 @@ class miSQLiteHelper(context: Context) : SQLiteOpenHelper(context, "ukey.db", nu
     fun obtenerProductosDestacados(): List<Producto> {
         val lista = mutableListOf<Producto>()
         val db = this.readableDatabase
+        // Limitamos a 2 productos para destacados
         val cursor = db.rawQuery(
             "SELECT id, nombre, descripcion, precio, stock, imagen, categoria_id FROM productos LIMIT 2",
             null
@@ -161,6 +162,82 @@ class miSQLiteHelper(context: Context) : SQLiteOpenHelper(context, "ukey.db", nu
             } while (cursor.moveToNext())
         }
         cursor.close()
+        db.close()
+        return lista
+    }
+
+    // ✅ Nuevo método: Obtener productos destacados aleatorios
+    fun obtenerProductosDestacadosAleatorios(): List<Producto> {
+        val lista = mutableListOf<Producto>()
+        val db = this.readableDatabase
+        // Usamos ORDER BY RANDOM() y limitamos a 4
+        val cursor = db.rawQuery(
+            "SELECT id, nombre, descripcion, precio, stock, imagen, categoria_id FROM productos ORDER BY RANDOM() LIMIT 4",
+            null
+        )
+        if (cursor.moveToFirst()) {
+            do {
+                lista.add(
+                    Producto(
+                        cursor.getInt(cursor.getColumnIndexOrThrow("id")),
+                        cursor.getString(cursor.getColumnIndexOrThrow("nombre")),
+                        cursor.getString(cursor.getColumnIndexOrThrow("descripcion")),
+                        cursor.getDouble(cursor.getColumnIndexOrThrow("precio")),
+                        cursor.getInt(cursor.getColumnIndexOrThrow("stock")),
+                        cursor.getString(cursor.getColumnIndexOrThrow("imagen")),
+                        cursor.getInt(cursor.getColumnIndexOrThrow("categoria_id"))
+                    )
+                )
+            } while (cursor.moveToNext())
+        }
+        cursor.close()
+        db.close()
+        return lista
+    }
+
+    // ... resto de métodos ...
+    // Método: Obtener productos por nombre de categoría
+    fun obtenerProductosPorCategoria(nombreCategoria: String): List<Producto> {
+        val lista = mutableListOf<Producto>()
+        val db = this.readableDatabase
+
+        // Primero obtenemos el id de la categoría
+        val cursorCat = db.rawQuery(
+            "SELECT id FROM categorias WHERE nombre = ?",
+            arrayOf(nombreCategoria)
+        )
+
+        var categoriaId = -1
+        if (cursorCat.moveToFirst()) {
+            categoriaId = cursorCat.getInt(cursorCat.getColumnIndexOrThrow("id"))
+        }
+        cursorCat.close()
+
+        if (categoriaId != -1) {
+            // Si encontramos la categoría, buscamos los productos
+            val cursorProd = db.rawQuery(
+                "SELECT id, nombre, descripcion, precio, stock, imagen, categoria_id FROM productos WHERE categoria_id = ? ORDER BY RANDOM() LIMIT 4",
+                arrayOf(categoriaId.toString())
+            )
+
+            if (cursorProd.moveToFirst()) {
+                do {
+                    lista.add(
+                        Producto(
+                            cursorProd.getInt(cursorProd.getColumnIndexOrThrow("id")),
+                            cursorProd.getString(cursorProd.getColumnIndexOrThrow("nombre")),
+                            cursorProd.getString(cursorProd.getColumnIndexOrThrow("descripcion")),
+                            cursorProd.getDouble(cursorProd.getColumnIndexOrThrow("precio")),
+                            cursorProd.getInt(cursorProd.getColumnIndexOrThrow("stock")),
+                            cursorProd.getString(cursorProd.getColumnIndexOrThrow("imagen")),
+                            cursorProd.getInt(cursorProd.getColumnIndexOrThrow("categoria_id"))
+                        )
+                    )
+                } while (cursorProd.moveToNext())
+            }
+            cursorProd.close()
+        }
+
         db.close()
         return lista
     }

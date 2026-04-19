@@ -115,13 +115,17 @@
 
             <!-- Teclados -->
             <LinearLayout
+                android:id="@+id/categoryTeclados"
                 android:layout_width="0dp"
                 android:layout_height="100dp"
                 android:layout_weight="1"
                 android:layout_margin="6dp"
                 android:orientation="vertical"
                 android:gravity="center"
-                android:background="@drawable/card_background">
+                android:background="@drawable/card_background"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackgroundBorderless">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -143,13 +147,17 @@
 
             <!-- Ratones -->
             <LinearLayout
+                android:id="@+id/categoryRatones"
                 android:layout_width="0dp"
                 android:layout_height="100dp"
                 android:layout_weight="1"
                 android:layout_margin="6dp"
                 android:orientation="vertical"
                 android:gravity="center"
-                android:background="@drawable/card_background">
+                android:background="@drawable/card_background"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackgroundBorderless">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -171,13 +179,17 @@
 
             <!-- Accesorios -->
             <LinearLayout
+                android:id="@+id/categoryAccesorios"
                 android:layout_width="0dp"
                 android:layout_height="100dp"
                 android:layout_weight="1"
                 android:layout_margin="6dp"
                 android:orientation="vertical"
                 android:gravity="center"
-                android:background="@drawable/card_background">
+                android:background="@drawable/card_background"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackgroundBorderless">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -199,172 +211,12 @@
 
         </LinearLayout>
 
-        <!-- SECCIÓN PRODUCTOS DESTACADOS -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Productos destacados"
-            android:textColor="#F0EAF8"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:letterSpacing="0.04"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="28dp"
-            android:layout_marginBottom="14dp" />
-
-        <!-- TARJETA PRODUCTO 1 -->
-        <LinearLayout
-            android:id="@+id/cardProducto1"
+        <!-- CONTENEDOR DINÁMICO (aquí irán los productos destacados o de categoría) -->
+        <FrameLayout
+            android:id="@+id/fragmentContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginBottom="12dp"
-            android:orientation="vertical"
-            android:padding="20dp"
-            android:background="@drawable/card_background">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
-
-                <ImageView
-                    android:id="@+id/ivProducto1"
-                    android:layout_width="72dp"
-                    android:layout_height="72dp"
-                    android:src="@drawable/ic_producto_placeholder"
-                    android:scaleType="centerCrop"
-                    android:contentDescription="Imagen producto 1" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginStart="12dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tvNombreProducto1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Teclado Mecánico Pro"
-                        android:textColor="#F0EAF8"
-                        android:textSize="15sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/tvDescProducto1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Switches Cherry MX · RGB"
-                        android:textColor="#7A6E94"
-                        android:textSize="12sp"
-                        android:layout_marginTop="2dp" />
-
-                    <TextView
-                        android:id="@+id/tvPrecioProducto1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="89.99 €"
-                        android:textColor="#C084E8"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:layout_marginTop="6dp" />
-
-                </LinearLayout>
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/btnAnadirProducto1"
-                android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:text="Añadir al carrito"
-                android:textColor="#FFFFFF"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:background="@drawable/btn_neon_purple"
-                android:layout_marginTop="14dp"
-                android:stateListAnimator="@null" />
-
-        </LinearLayout>
-
-        <!-- TARJETA PRODUCTO 2 -->
-        <LinearLayout
-            android:id="@+id/cardProducto2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginBottom="12dp"
-            android:orientation="vertical"
-            android:padding="20dp"
-            android:background="@drawable/card_background">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
-
-                <ImageView
-                    android:id="@+id/ivProducto2"
-                    android:layout_width="72dp"
-                    android:layout_height="72dp"
-                    android:src="@drawable/ic_producto_placeholder"
-                    android:scaleType="centerCrop"
-                    android:contentDescription="Imagen producto 2" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginStart="12dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tvNombreProducto2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Ratón Gaming RGB"
-                        android:textColor="#F0EAF8"
-                        android:textSize="15sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/tvDescProducto2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="16000 DPI · 7 botones"
-                        android:textColor="#7A6E94"
-                        android:textSize="12sp"
-                        android:layout_marginTop="2dp" />
-
-                    <TextView
-                        android:id="@+id/tvPrecioProducto2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="49.99 €"
-                        android:textColor="#C084E8"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:layout_marginTop="6dp" />
-
-                </LinearLayout>
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/btnAnadirProducto2"
-                android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:text="Añadir al carrito"
-                android:textColor="#FFFFFF"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:background="@drawable/btn_neon_purple"
-                android:layout_marginTop="14dp"
-                android:stateListAnimator="@null" />
-
-        </LinearLayout>
+            android:layout_marginTop="28dp" />
 
         <!-- FOOTER -->
         <TextView

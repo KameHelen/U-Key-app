@@ -4,8 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
@@ -21,32 +20,11 @@ class HomeActivity : AppCompatActivity() {
         usuarioId = intent.getIntExtra("usuario_id", -1)
         dbHelper = miSQLiteHelper(this)
 
-        // Cargar y mostrar productos destacados
-        val productos = dbHelper.obtenerProductosDestacados()
+        // ✅ Cargar productos destacados aleatorios al inicio (como un fragment especial)
+        loadFeaturedProductsFragment()
 
-        if (productos.isNotEmpty()) {
-            val p1 = productos[0]
-            findViewById<TextView>(R.id.tvNombreProducto1).text = p1.nombre
-            findViewById<TextView>(R.id.tvDescProducto1).text = p1.descripcion
-            findViewById<TextView>(R.id.tvPrecioProducto1).text = String.format("%.2f €", p1.precio)
-            cargarImagenProducto(p1.imagen, findViewById(R.id.ivProducto1))
-
-            findViewById<Button>(R.id.btnAnadirProducto1).setOnClickListener {
-                agregarAlCarrito(p1.id)
-            }
-        }
-
-        if (productos.size >= 2) {
-            val p2 = productos[1]
-            findViewById<TextView>(R.id.tvNombreProducto2).text = p2.nombre
-            findViewById<TextView>(R.id.tvDescProducto2).text = p2.descripcion
-            findViewById<TextView>(R.id.tvPrecioProducto2).text = String.format("%.2f €", p2.precio)
-            cargarImagenProducto(p2.imagen, findViewById(R.id.ivProducto2))
-
-            findViewById<Button>(R.id.btnAnadirProducto2).setOnClickListener {
-                agregarAlCarrito(p2.id)
-            }
-        }
+        // Configurar clics en categorías
+        setupCategoryClicks()
 
         // Botón carrito
         findViewById<ImageButton>(R.id.btnCarrito).setOnClickListener {
@@ -64,27 +42,40 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    private fun cargarImagenProducto(nombreImagen: String?, imageView: ImageView) {
-        if (!nombreImagen.isNullOrEmpty()) {
-            val resId = resources.getIdentifier(nombreImagen, "drawable", packageName)
-            if (resId != 0) {
-                imageView.setImageResource(resId)
-                return
-            }
-        }
-        imageView.setImageResource(R.drawable.ic_producto_placeholder)
+    private fun loadFeaturedProductsFragment() {
+        // ✅ Carga el fragment de productos destacados aleatorios
+        val featuredFragment = ProductosFragment.newInstance("destacados") // ✅ Solo 1 parámetro
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainer, featuredFragment)
+            .commit()
     }
 
-    private fun agregarAlCarrito(productoId: Int) {
-        if (usuarioId == -1) {
-            Toast.makeText(this, "Error: sesión no válida", Toast.LENGTH_SHORT).show()
-            return
+    private fun setupCategoryClicks() {
+        findViewById<LinearLayout>(R.id.categoryTeclados).setOnClickListener {
+            loadProductsFragment("Teclados")
         }
-        val resultado = dbHelper.agregarAlCarrito(usuarioId, productoId, 1)
-        if (resultado != -1L) {
-            Toast.makeText(this, "Producto añadido al carrito ✓", Toast.LENGTH_SHORT).show()
-        } else {
-            Toast.makeText(this, "Error al añadir al carrito", Toast.LENGTH_SHORT).show()
+        findViewById<LinearLayout>(R.id.categoryRatones).setOnClickListener {
+            loadProductsFragment("Ratones")
+        }
+        findViewById<LinearLayout>(R.id.categoryAccesorios).setOnClickListener {
+            loadProductsFragment("Accesorios")
         }
     }
+
+    private fun loadProductsFragment(categoria: String) {
+        // ✅ Carga el fragment de productos por categoría
+        val fragment = ProductosFragment.newInstance(categoria) // ✅ Solo 1 parámetro
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainer, fragment)
+            .commit()
+    }
+
+    // ✅ Eliminamos la función loadFeaturedProducts() porque ahora lo hace el fragment
+    // private fun loadFeaturedProducts() { ... }
+
+    // ✅ Eliminamos la función cargarImagenProducto() porque ahora la maneja el fragment
+    // private fun cargarImagenProducto(...) { ... }
+
+    // ✅ Eliminamos la función agregarAlCarrito() porque ahora la maneja el fragment
+    // private fun agregarAlCarrito(...) { ... }
 }

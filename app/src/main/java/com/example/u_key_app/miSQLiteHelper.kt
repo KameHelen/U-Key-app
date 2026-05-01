@@ -327,4 +327,70 @@ class miSQLiteHelper(context: Context) : SQLiteOpenHelper(context, "ukey.db", nu
         db.close()
         return result
     }
+
+    // --- Métodos para Admin ---
+
+    fun esAdmin(email: String, pass: String): Boolean {
+        return email == "admin@ukey.com" && pass == "admin123"
+    }
+
+    fun obtenerTodosLosProductos(): List<Producto> {
+        val lista = mutableListOf<Producto>()
+        val db = this.readableDatabase
+        val cursor = db.rawQuery(
+            "SELECT id, nombre, descripcion, precio, stock, imagen, categoria_id FROM productos ORDER BY id DESC", null)
+        if (cursor.moveToFirst()) {
+            do {
+                lista.add(Producto(
+                    cursor.getInt(cursor.getColumnIndexOrThrow("id")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("nombre")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("descripcion")),
+                    cursor.getDouble(cursor.getColumnIndexOrThrow("precio")),
+                    cursor.getInt(cursor.getColumnIndexOrThrow("stock")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("imagen")),
+                    cursor.getInt(cursor.getColumnIndexOrThrow("categoria_id"))
+                ))
+            } while (cursor.moveToNext())
+        }
+        cursor.close()
+        db.close()
+        return lista
+    }
+
+    fun añadirProducto(nombre: String, descripcion: String, precio: Double, stock: Int, imagen: String, categoriaId: Int): Long {
+        val db = this.writableDatabase
+        val values = ContentValues().apply {
+            put("nombre", nombre)
+            put("descripcion", descripcion)
+            put("precio", precio)
+            put("stock", stock)
+            put("imagen", imagen)
+            put("categoria_id", categoriaId)
+        }
+        val result = db.insert("productos", null, values)
+        db.close()
+        return result
+    }
+
+    fun eliminarProducto(id: Int): Int {
+        val db = this.writableDatabase
+        db.delete("carrito", "producto_id = ?", arrayOf(id.toString()))
+        val result = db.delete("productos", "id = ?", arrayOf(id.toString()))
+        db.close()
+        return result
+    }
+
+    fun obtenerCategorias(): List<Pair<Int, String>> {
+        val lista = mutableListOf<Pair<Int, String>>()
+        val db = this.readableDatabase
+        val cursor = db.rawQuery("SELECT id, nombre FROM categorias ORDER BY nombre", null)
+        if (cursor.moveToFirst()) {
+            do {
+                lista.add(Pair(cursor.getInt(0), cursor.getString(1)))
+            } while (cursor.moveToNext())
+        }
+        cursor.close()
+        db.close()
+        return lista
+    }
 }

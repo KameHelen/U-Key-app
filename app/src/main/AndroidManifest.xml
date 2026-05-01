@@ -46,6 +46,16 @@
             android:name=".CategoriasActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".AdminProductosActivity"
+            android:exported="false"
+            android:theme="@style/Theme.LoginLayout" />
+
+        <activity
+            android:name=".AdminAddProductoActivity"
+            android:exported="false"
+            android:theme="@style/Theme.LoginLayout" />
+
     </application>
 
 </manifest>

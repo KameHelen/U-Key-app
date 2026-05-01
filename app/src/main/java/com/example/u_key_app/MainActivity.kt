@@ -39,6 +39,10 @@ class MainActivity : AppCompatActivity() {
 
             if (email.isEmpty() || pass.isEmpty()) {
                 Toast.makeText(this, "Por favor, introduce tus credenciales", Toast.LENGTH_SHORT).show()
+            } else if (dbHelper.esAdmin(email, pass)) {
+                Toast.makeText(this, "Bienvenido, Admin", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(this, AdminProductosActivity::class.java))
+                finish()
             } else {
                 val userId = dbHelper.obtenerIdUsuario(email, pass)
                 if (userId != -1) {

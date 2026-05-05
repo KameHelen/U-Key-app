@@ -40,6 +40,14 @@ class MainActivity : AppCompatActivity() {
             if (email.isEmpty() || pass.isEmpty()) {
                 Toast.makeText(this, "Por favor, introduce tus credenciales", Toast.LENGTH_SHORT).show()
             } else {
+                // Acceso al panel de administración
+                if (email == "admin@ukey.com" && pass == "admin123") {
+                    val intent = Intent(this, AdminActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                    return@setOnClickListener
+                }
+
                 val userId = dbHelper.obtenerIdUsuario(email, pass)
                 if (userId != -1) {
                     Toast.makeText(this, "Inicio de sesión correcto", Toast.LENGTH_SHORT).show()

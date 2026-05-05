@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal" <!-- Cambiado a horizontal -->
+    android:orientation="horizontal"
     android:background="#0D0D15">
 
     <!-- PANEL IZQUIERDO: Categorías fijas -->
@@ -11,7 +11,7 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:minWidth="280dp" <!-- Ancho mínimo para que no se vea muy chico -->
+        android:minWidth="280dp"
         android:orientation="vertical"
         android:background="#0A0815"
         android:padding="16dp">

@@ -1,7 +1,6 @@
 package com.example.u_key_app
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -83,9 +82,6 @@ class ProductosFragment : Fragment() {
         view?.findViewById<View>(R.id.cardProducto2)?.visibility = View.GONE
         view?.findViewById<View>(R.id.cardProducto3)?.visibility = View.GONE
         view?.findViewById<View>(R.id.cardProducto4)?.visibility = View.GONE
-        // Opcional: Reiniciar texto e imágenes
-        // findViewById<TextView>(R.id.tvNombreProducto1).text = ""
-        // etc.
     }
 
     private fun mostrarProductoEnCard(view: View, cardId: Int, ivId: Int, tvNombreId: Int, tvDescId: Int, tvPrecioId: Int, btnId: Int, producto: Producto) {

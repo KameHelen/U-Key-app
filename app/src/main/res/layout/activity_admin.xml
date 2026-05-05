@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    android:background="#0D0D15"
+    tools:context=".AdminActivity">
+
+    <!-- HEADER / NAVBAR — igual que activity_home.xml -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="16dp"
+        android:layout_marginTop="16dp"
+        android:background="#0A0815">
+
+        <ImageView
+            android:layout_width="140dp"
+            android:layout_height="72dp"
+            android:src="@drawable/logo_ukey"
+            android:contentDescription="Logo U-KEY" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:text="Salir"
+            android:textSize="12sp"
+            android:textColor="#C084E8"
+            android:backgroundTint="#1E1433"
+            android:stateListAnimator="@null" />
+
+    </LinearLayout>
+
+    <!-- HERO — igual que el banner de activity_home.xml -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:paddingTop="28dp"
+        android:paddingBottom="20dp"
+        android:paddingStart="32dp"
+        android:paddingEnd="32dp"
+        android:background="#13102A">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Panel de Administración"
+            android:textColor="#F0EAF8"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.01"
+            android:gravity="center"
+            android:maxLines="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Control de stock del inventario"
+            android:textColor="#7A6E94"
+            android:textSize="14sp"
+            android:letterSpacing="0.02"
+            android:layout_marginTop="6dp"
+            android:gravity="center" />
+
+    </LinearLayout>
+
+    <!-- SECCIÓN LEYENDA — mismo estilo que el título de "Categorías" en home -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Inventario"
+        android:textColor="#F0EAF8"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:letterSpacing="0.04"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="4dp" />
+
+    <!-- Leyenda de colores -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:layout_marginBottom="4dp">
+
+        <View
+            android:id="@+id/legendVerde"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:background="@drawable/circle_priority" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="&gt; 10 ud."
+            android:textColor="#7A6E94"
+            android:textSize="11sp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="14dp" />
+
+        <View
+            android:id="@+id/legendNaranja"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:background="@drawable/circle_priority" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="6-10 ud."
+            android:textColor="#7A6E94"
+            android:textSize="11sp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="14dp" />
+
+        <View
+            android:id="@+id/legendRojo"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:background="@drawable/circle_priority" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5 ud. o menos"
+            android:textColor="#7A6E94"
+            android:textSize="11sp"
+            android:layout_marginStart="5dp" />
+
+    </LinearLayout>
+
+    <!-- Lista de productos con stock — ocupa el resto de la pantalla -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvStock"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingHorizontal="8dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="8dp"
+        android:clipToPadding="false"
+        tools:listitem="@layout/item_stock" />
+
+</LinearLayout>

@@ -22,8 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:baselineAligned="false" <!-- Evita que se alinee verticalmente por texto -->
-
+        android:baselineAligned="false"
         android:layout_marginBottom="12dp">
 
         <!-- TARJETA PRODUCTO 1 -->
@@ -32,7 +31,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginEnd="6dp" <!-- Espacio entre tarjetas -->
+            android:layout_marginEnd="6dp"
             android:orientation="vertical"
             android:padding="16dp"
             android:background="@drawable/card_background"

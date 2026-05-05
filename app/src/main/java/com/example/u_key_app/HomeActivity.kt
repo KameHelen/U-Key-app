@@ -43,8 +43,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun loadFeaturedProductsFragment() {
-        // ✅ Carga el fragment de productos destacados aleatorios
-        val featuredFragment = ProductosFragment.newInstance("destacados") // ✅ Solo 1 parámetro
+        val featuredFragment = ProductosFragment.newInstance("destacados")
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragmentContainer, featuredFragment)
             .commit()
@@ -63,19 +62,9 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun loadProductsFragment(categoria: String) {
-        // ✅ Carga el fragment de productos por categoría
-        val fragment = ProductosFragment.newInstance(categoria) // ✅ Solo 1 parámetro
+        val fragment = ProductosFragment.newInstance(categoria)
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragmentContainer, fragment)
             .commit()
     }
-
-    // ✅ Eliminamos la función loadFeaturedProducts() porque ahora lo hace el fragment
-    // private fun loadFeaturedProducts() { ... }
-
-    // ✅ Eliminamos la función cargarImagenProducto() porque ahora la maneja el fragment
-    // private fun cargarImagenProducto(...) { ... }
-
-    // ✅ Eliminamos la función agregarAlCarrito() porque ahora la maneja el fragment
-    // private fun agregarAlCarrito(...) { ... }
 }

@@ -42,9 +42,12 @@
             android:exported="false"
             android:theme="@style/Theme.LoginLayout" />
 
+        <!-- AdminActivity: panel de administración con control de stock -->
         <activity
-            android:name=".CategoriasActivity"
-            android:exported="false" />
+            android:name=".AdminActivity"
+            android:exported="false"
+            android:label="Administración"
+            android:theme="@style/Theme.LoginLayout" />
 
     </application>
 

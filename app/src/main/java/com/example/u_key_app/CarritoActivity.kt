@@ -36,10 +36,20 @@ class CarritoActivity : AppCompatActivity() {
 
         btnFinalizar.setOnClickListener {
             if (adapter.itemCount > 0) {
-                // Aquí iría la lógica para procesar el pedido
-                dbHelper.vaciarCarrito(usuarioId)
-                cargarDatos()
-                Toast.makeText(this, "¡Compra realizada con éxito!", Toast.LENGTH_LONG).show()
+                val sinStock = dbHelper.verificarStockSuficiente(usuarioId)
+                if (sinStock.isNotEmpty()) {
+                    val nombres = sinStock.joinToString(", ")
+                    Toast.makeText(
+                        this,
+                        "Stock insuficiente para: $nombres",
+                        Toast.LENGTH_LONG
+                    ).show()
+                } else {
+                    dbHelper.descontarStockCarrito(usuarioId)
+                    dbHelper.vaciarCarrito(usuarioId)
+                    cargarDatos()
+                    Toast.makeText(this, "¡Compra realizada con éxito!", Toast.LENGTH_LONG).show()
+                }
             } else {
                 Toast.makeText(this, "El carrito está vacío", Toast.LENGTH_SHORT).show()
             }

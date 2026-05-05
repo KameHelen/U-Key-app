@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="8dp"
+    android:layout_marginVertical="6dp"
+    android:clickable="true"
+    android:focusable="true"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="0dp"
+    app:cardBackgroundColor="@android:color/transparent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:gravity="center_vertical"
+        android:background="@drawable/bg_item_cart">
+
+        <!-- Imagen del producto con círculo de prioridad superpuesto -->
+        <FrameLayout
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_marginEnd="14dp">
+
+            <ImageView
+                android:id="@+id/ivProducto"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:scaleType="centerCrop"
+                android:background="#1E1433"
+                android:padding="6dp"
+                android:src="@drawable/ic_producto_placeholder" />
+
+            <View
+                android:id="@+id/viewPrioridad"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:background="@drawable/circle_priority"
+                android:layout_gravity="top|end"
+                android:layout_margin="3dp" />
+
+        </FrameLayout>
+
+        <!-- Información del producto -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvNombreProducto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nombre"
+                android:textColor="#F0EAF8"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.02" />
+
+            <TextView
+                android:id="@+id/tvCategoria"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Categoría"
+                android:textColor="#7A6E94"
+                android:textSize="12sp"
+                android:layout_marginTop="2dp" />
+
+            <TextView
+                android:id="@+id/tvStock"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Stock: 0 ud."
+                android:textColor="#C084E8"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:layout_marginTop="6dp" />
+
+        </LinearLayout>
+
+        <!-- Stock editable directamente -->
+        <EditText
+            android:id="@+id/etStock"
+            android:layout_width="64dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:inputType="number"
+            android:text="0"
+            android:textColor="#C084E8"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:padding="8dp"
+            android:background="@drawable/bg_item_cart"
+            android:imeOptions="actionDone"
+            android:singleLine="true"
+            android:maxLength="4" />
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

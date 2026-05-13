@@ -1,10 +1,12 @@
 package com.example.u_key_app
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -15,6 +17,7 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var dbHelper: miSQLiteHelper
     private var usuarioId = -1
     private lateinit var tvCarritoBadge: TextView
+    private lateinit var ivPerfilMini: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,8 +27,9 @@ class HomeActivity : AppCompatActivity() {
         dbHelper = miSQLiteHelper(this)
 
         tvCarritoBadge = findViewById(R.id.tvCarritoBadge)
+        ivPerfilMini = findViewById(R.id.ivPerfilMini)
 
-        // ✅ Cargar productos destacados aleatorios al inicio (como un fragment especial)
+        // ✅ Cargar productos destacados aleatorios al inicio
         loadFeaturedProductsFragment()
 
         // Configurar clics en categorías
@@ -34,6 +38,13 @@ class HomeActivity : AppCompatActivity() {
         // Botón carrito
         findViewById<ImageButton>(R.id.btnCarrito).setOnClickListener {
             val intent = Intent(this, CarritoActivity::class.java)
+            intent.putExtra("usuario_id", usuarioId)
+            startActivity(intent)
+        }
+
+        // Botón Mi Perfil
+        findViewById<LinearLayout>(R.id.btnPerfil).setOnClickListener {
+            val intent = Intent(this, PerfilActivity::class.java)
             intent.putExtra("usuario_id", usuarioId)
             startActivity(intent)
         }
@@ -50,6 +61,18 @@ class HomeActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         actualizarBadgeCarrito()
+        cargarDatosUsuario()
+    }
+
+    private fun cargarDatosUsuario() {
+        if (usuarioId != -1) {
+            val usuario = dbHelper.obtenerUsuario(usuarioId)
+            usuario?.fotoPerfil?.let {
+                ivPerfilMini.setImageURI(Uri.parse(it))
+            } ?: run {
+                ivPerfilMini.setImageResource(R.drawable.ic_producto_placeholder)
+            }
+        }
     }
 
     fun actualizarBadgeCarrito() {

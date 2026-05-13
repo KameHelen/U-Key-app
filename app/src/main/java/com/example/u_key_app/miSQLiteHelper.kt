@@ -5,7 +5,7 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
-class miSQLiteHelper(context: Context) : SQLiteOpenHelper(context, "ukey.db", null, 3) {
+class miSQLiteHelper(context: Context) : SQLiteOpenHelper(context, "ukey.db", null, 4) {
 
     override fun onCreate(db: SQLiteDatabase?) {
         // Tabla Categorías
@@ -21,7 +21,8 @@ class miSQLiteHelper(context: Context) : SQLiteOpenHelper(context, "ukey.db", nu
                 "nombre TEXT, " +
                 "apellidos TEXT, " +
                 "email TEXT UNIQUE, " +
-                "password TEXT)")
+                "password TEXT, " +
+                "foto_perfil TEXT)")
         db?.execSQL(createUsuarios)
 
         // Tabla Productos
@@ -96,11 +97,9 @@ class miSQLiteHelper(context: Context) : SQLiteOpenHelper(context, "ukey.db", nu
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-        db?.execSQL("DROP TABLE IF EXISTS carrito")
-        db?.execSQL("DROP TABLE IF EXISTS productos")
-        db?.execSQL("DROP TABLE IF EXISTS usuarios")
-        db?.execSQL("DROP TABLE IF EXISTS categorias")
-        onCreate(db)
+        if (oldVersion < 4) {
+            db?.execSQL("ALTER TABLE usuarios ADD COLUMN foto_perfil TEXT")
+        }
     }
 
     // --- Métodos para Usuarios ---
@@ -131,6 +130,38 @@ class miSQLiteHelper(context: Context) : SQLiteOpenHelper(context, "ukey.db", nu
         cursor.close()
         db.close()
         return id
+    }
+
+    fun obtenerUsuario(id: Int): Usuario? {
+        val db = this.readableDatabase
+        val cursor = db.rawQuery("SELECT * FROM usuarios WHERE id = ?", arrayOf(id.toString()))
+        var usuario: Usuario? = null
+        if (cursor.moveToFirst()) {
+            usuario = Usuario(
+                cursor.getInt(cursor.getColumnIndexOrThrow("id")),
+                cursor.getString(cursor.getColumnIndexOrThrow("nombre")),
+                cursor.getString(cursor.getColumnIndexOrThrow("apellidos")),
+                cursor.getString(cursor.getColumnIndexOrThrow("email")),
+                cursor.getString(cursor.getColumnIndexOrThrow("password")),
+                cursor.getString(cursor.getColumnIndexOrThrow("foto_perfil"))
+            )
+        }
+        cursor.close()
+        db.close()
+        return usuario
+    }
+
+    fun actualizarUsuario(id: Int, nombre: String, apellidos: String, email: String, foto: String?): Int {
+        val db = this.writableDatabase
+        val values = ContentValues().apply {
+            put("nombre", nombre)
+            put("apellidos", apellidos)
+            put("email", email)
+            put("foto_perfil", foto)
+        }
+        val result = db.update("usuarios", values, "id = ?", arrayOf(id.toString()))
+        db.close()
+        return result
     }
 
     // --- Métodos para Productos ---

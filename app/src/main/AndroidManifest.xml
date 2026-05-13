@@ -49,6 +49,13 @@
             android:label="Administración"
             android:theme="@style/Theme.LoginLayout" />
 
+        <!-- PerfilActivity: gestión del perfil de usuario -->
+        <activity
+            android:name=".PerfilActivity"
+            android:exported="false"
+            android:label="Mi Perfil"
+            android:theme="@style/Theme.LoginLayout" />
+
     </application>
 
 </manifest>

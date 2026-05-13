@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.net.Uri
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -99,6 +100,10 @@ class ProductosFragment : Fragment() {
 
     private fun cargarImagenProducto(nombreImagen: String?, imageView: ImageView) {
         if (!nombreImagen.isNullOrEmpty()) {
+            if (nombreImagen.startsWith("content://")) {
+                imageView.setImageURI(Uri.parse(nombreImagen))
+                return
+            }
             val resId = resources.getIdentifier(nombreImagen, "drawable", requireContext().packageName)
             if (resId != 0) {
                 imageView.setImageResource(resId)

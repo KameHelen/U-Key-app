@@ -4,10 +4,13 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +20,21 @@ class AdminActivity : AppCompatActivity() {
     private lateinit var dbHelper: miSQLiteHelper
     private lateinit var rvStock: RecyclerView
     private lateinit var adapter: StockAdapter
+
+    private var fotoProductoUri: Uri? = null
+    private var ivPreviewActual: ImageView? = null
+
+    private val selectImageLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+        uri?.let {
+            fotoProductoUri = it
+            ivPreviewActual?.setImageURI(it)
+            try {
+                contentResolver.takePersistableUriPermission(it, Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,6 +96,15 @@ class AdminActivity : AppCompatActivity() {
         val etPrecio = dialogView.findViewById<EditText>(R.id.etPrecio)
         val etStock = dialogView.findViewById<EditText>(R.id.etStock)
         val etCatId = dialogView.findViewById<EditText>(R.id.etCategoriaId)
+        val ivPreview = dialogView.findViewById<ImageView>(R.id.ivProductoPreview)
+        val btnFoto = dialogView.findViewById<Button>(R.id.btnSeleccionarImagen)
+
+        ivPreviewActual = ivPreview
+        fotoProductoUri = null // Resetear para el nuevo diálogo
+
+        btnFoto.setOnClickListener {
+            selectImageLauncher.launch("image/*")
+        }
 
         AlertDialog.Builder(this)
             .setView(dialogView)
@@ -87,7 +114,7 @@ class AdminActivity : AppCompatActivity() {
                 val precio = etPrecio.text.toString().toDoubleOrNull() ?: 0.0
                 val stock = etStock.text.toString().toIntOrNull() ?: 0
                 val catId = etCatId.text.toString().toIntOrNull() ?: 1
-                val imagen = "ic_producto_placeholder" // Imagen por defecto
+                val imagen = fotoProductoUri?.toString() ?: "ic_producto_placeholder"
 
                 if (nombre.isNotEmpty()) {
                     dbHelper.insertarProducto(nombre, desc, precio, stock, imagen, catId)

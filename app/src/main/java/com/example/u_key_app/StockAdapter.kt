@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.net.Uri
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
@@ -42,13 +43,19 @@ class StockAdapter(
 
         // Imagen del producto
         val context = holder.itemView.context
-        val resId = producto.imagen?.let {
-            context.resources.getIdentifier(it, "drawable", context.packageName)
-        } ?: 0
-        if (resId != 0) {
-            holder.ivProducto.setImageResource(resId)
+        val imagenStr = producto.imagen
+
+        if (imagenStr != null && imagenStr.startsWith("content://")) {
+            holder.ivProducto.setImageURI(Uri.parse(imagenStr))
         } else {
-            holder.ivProducto.setImageResource(R.drawable.ic_producto_placeholder)
+            val resId = imagenStr?.let {
+                context.resources.getIdentifier(it, "drawable", context.packageName)
+            } ?: 0
+            if (resId != 0) {
+                holder.ivProducto.setImageResource(resId)
+            } else {
+                holder.ivProducto.setImageResource(R.drawable.ic_producto_placeholder)
+            }
         }
 
         // Color del círculo según nivel de stock

@@ -66,6 +66,35 @@
         android:textColor="#F0EAF8"
         android:textColorHint="#7A6E94"
         android:backgroundTint="#C084E8"
-        android:layout_marginBottom="24dp" />
+        android:layout_marginBottom="16dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="16dp">
+
+        <ImageView
+            android:id="@+id/ivProductoPreview"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/ic_producto_placeholder"
+            android:scaleType="centerCrop"
+            android:background="#1E1433"
+            android:padding="4dp" />
+
+        <Button
+            android:id="@+id/btnSeleccionarImagen"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="16dp"
+            android:text="Cambiar Foto"
+            android:textSize="12sp"
+            android:textColor="#F0EAF8"
+            android:backgroundTint="#1E1433"
+            android:stateListAnimator="@null" />
+    </LinearLayout>
 
 </LinearLayout>

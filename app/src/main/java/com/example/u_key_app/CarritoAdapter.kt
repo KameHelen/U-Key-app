@@ -1,5 +1,6 @@
 package com.example.u_key_app
 
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,11 +39,17 @@ class CarritoAdapter(
 
         // Cargar imagen del producto
         val ctx = holder.itemView.context
-        val resId = if (!item.imagen.isNullOrEmpty())
-            ctx.resources.getIdentifier(item.imagen, "drawable", ctx.packageName)
-        else 0
-        if (resId != 0) holder.ivProducto.setImageResource(resId)
-        else holder.ivProducto.setImageResource(R.drawable.ic_producto_placeholder)
+        val imagenStr = item.imagen
+
+        if (imagenStr != null && imagenStr.startsWith("content://")) {
+            holder.ivProducto.setImageURI(Uri.parse(imagenStr))
+        } else {
+            val resId = if (!imagenStr.isNullOrEmpty())
+                ctx.resources.getIdentifier(imagenStr, "drawable", ctx.packageName)
+            else 0
+            if (resId != 0) holder.ivProducto.setImageResource(resId)
+            else holder.ivProducto.setImageResource(R.drawable.ic_producto_placeholder)
+        }
 
         holder.btnSumar.setOnClickListener {
             onCantidadChanged(item, item.cantidad + 1)

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="8dp"> <!-- Menos padding para aprovechar espacio -->
+    android:padding="8dp">
 
     <!-- Mensaje opcional si no hay productos -->
     <TextView
@@ -23,6 +23,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:baselineAligned="false"
+
         android:layout_marginBottom="12dp">
 
         <!-- TARJETA PRODUCTO 1 -->

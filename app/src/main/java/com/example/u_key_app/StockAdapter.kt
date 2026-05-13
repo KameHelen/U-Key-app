@@ -13,7 +13,8 @@ import androidx.recyclerview.widget.RecyclerView
 
 class StockAdapter(
     private val productos: MutableList<ProductoAdmin>,
-    private val onStockChanged: (ProductoAdmin, Int, Int) -> Unit
+    private val onStockChanged: (ProductoAdmin, Int, Int) -> Unit,
+    private val onDelete: (ProductoAdmin, Int) -> Unit
 ) : RecyclerView.Adapter<StockAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -23,6 +24,7 @@ class StockAdapter(
         val tvCategoria: TextView = view.findViewById(R.id.tvCategoria)
         val tvStock: TextView = view.findViewById(R.id.tvStock)
         val etStock: EditText = view.findViewById(R.id.etStock)
+        val btnEliminar: ImageView = view.findViewById(R.id.btnEliminarProducto)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -69,7 +71,13 @@ class StockAdapter(
             } else false
         }
 
-
+        // Botón Eliminar
+        holder.btnEliminar.setOnClickListener {
+            val pos = holder.bindingAdapterPosition
+            if (pos != RecyclerView.NO_POSITION) {
+                onDelete(productos[pos], pos)
+            }
+        }
     }
 
     private fun guardarNuevoStock(holder: ViewHolder) {
@@ -104,6 +112,14 @@ class StockAdapter(
         if (position in productos.indices) {
             productos[position].stock = nuevoStock
             notifyItemChanged(position)
+        }
+    }
+
+    fun eliminarProducto(position: Int) {
+        if (position in productos.indices) {
+            productos.removeAt(position)
+            notifyItemRemoved(position)
+            notifyItemRangeChanged(position, productos.size)
         }
     }
 

@@ -393,4 +393,26 @@ class miSQLiteHelper(context: Context) : SQLiteOpenHelper(context, "ukey.db", nu
         db.close()
         return lista
     }
+
+    fun insertarProducto(nombre: String, descripcion: String, precio: Double, stock: Int, imagen: String, categoriaId: Int): Long {
+        val db = this.writableDatabase
+        val values = ContentValues().apply {
+            put("nombre", nombre)
+            put("descripcion", descripcion)
+            put("precio", precio)
+            put("stock", stock)
+            put("imagen", imagen)
+            put("categoria_id", categoriaId)
+        }
+        val result = db.insert("productos", null, values)
+        db.close()
+        return result
+    }
+
+    fun eliminarProducto(id: Int): Int {
+        val db = this.writableDatabase
+        val result = db.delete("productos", "id = ?", arrayOf(id.toString()))
+        db.close()
+        return result
+    }
 }

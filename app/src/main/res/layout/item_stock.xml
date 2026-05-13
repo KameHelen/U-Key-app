@@ -100,6 +100,15 @@
             android:imeOptions="actionDone"
             android:singleLine="true"
             android:maxLength="4" />
+
+        <ImageButton
+            android:id="@+id/btnEliminarProducto"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="8dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@android:drawable/ic_menu_delete"
+            app:tint="#F44336" />
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

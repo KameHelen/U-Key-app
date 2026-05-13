@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="#13102A">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Añadir Nuevo Producto"
+        android:textColor="#F0EAF8"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp" />
+
+    <EditText
+        android:id="@+id/etNombre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nombre"
+        android:textColor="#F0EAF8"
+        android:textColorHint="#7A6E94"
+        android:backgroundTint="#C084E8"
+        android:layout_marginBottom="12dp" />
+
+    <EditText
+        android:id="@+id/etDescripcion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Descripción"
+        android:textColor="#F0EAF8"
+        android:textColorHint="#7A6E94"
+        android:backgroundTint="#C084E8"
+        android:layout_marginBottom="12dp" />
+
+    <EditText
+        android:id="@+id/etPrecio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Precio"
+        android:inputType="numberDecimal"
+        android:textColor="#F0EAF8"
+        android:textColorHint="#7A6E94"
+        android:backgroundTint="#C084E8"
+        android:layout_marginBottom="12dp" />
+
+    <EditText
+        android:id="@+id/etStock"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Stock inicial"
+        android:inputType="number"
+        android:textColor="#F0EAF8"
+        android:textColorHint="#7A6E94"
+        android:backgroundTint="#C084E8"
+        android:layout_marginBottom="12dp" />
+
+    <EditText
+        android:id="@+id/etCategoriaId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="ID Categoría (1: Teclados, 2: Ratones, 3: Accesorios)"
+        android:inputType="number"
+        android:textColor="#F0EAF8"
+        android:textColorHint="#7A6E94"
+        android:backgroundTint="#C084E8"
+        android:layout_marginBottom="24dp" />
+
+</LinearLayout>

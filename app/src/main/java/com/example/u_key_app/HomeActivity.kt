@@ -2,9 +2,11 @@ package com.example.u_key_app
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
@@ -12,6 +14,7 @@ class HomeActivity : AppCompatActivity() {
 
     private lateinit var dbHelper: miSQLiteHelper
     private var usuarioId = -1
+    private lateinit var tvCarritoBadge: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,6 +22,8 @@ class HomeActivity : AppCompatActivity() {
 
         usuarioId = intent.getIntExtra("usuario_id", -1)
         dbHelper = miSQLiteHelper(this)
+
+        tvCarritoBadge = findViewById(R.id.tvCarritoBadge)
 
         // ✅ Cargar productos destacados aleatorios al inicio (como un fragment especial)
         loadFeaturedProductsFragment()
@@ -39,6 +44,23 @@ class HomeActivity : AppCompatActivity() {
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(intent)
             finish()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        actualizarBadgeCarrito()
+    }
+
+    fun actualizarBadgeCarrito() {
+        if (usuarioId != -1) {
+            val total = dbHelper.obtenerCantidadTotalCarrito(usuarioId)
+            if (total > 0) {
+                tvCarritoBadge.text = total.toString()
+                tvCarritoBadge.visibility = View.VISIBLE
+            } else {
+                tvCarritoBadge.visibility = View.GONE
+            }
         }
     }
 

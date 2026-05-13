@@ -116,6 +116,8 @@ class ProductosFragment : Fragment() {
         val resultado = dbHelper.agregarAlCarrito(usuarioId, productoId, 1)
         if (resultado != -1L) {
             Toast.makeText(context, "Producto añadido al carrito ✓", Toast.LENGTH_SHORT).show()
+            // Notificar a HomeActivity para actualizar el badge
+            (activity as? HomeActivity)?.actualizarBadgeCarrito()
         } else {
             Toast.makeText(context, "Error al añadir al carrito", Toast.LENGTH_SHORT).show()
         }

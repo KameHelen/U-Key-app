@@ -163,53 +163,6 @@ class miSQLiteHelper(context: Context) : SQLiteOpenHelper(context, "ukey.db", nu
         return lista
     }
 
-    // ... resto de métodos ...
-    // Método: Obtener productos por nombre de categoría
-    fun obtenerProductosPorCategoria(nombreCategoria: String): List<Producto> {
-        val lista = mutableListOf<Producto>()
-        val db = this.readableDatabase
-
-        // Primero obtenemos el id de la categoría
-        val cursorCat = db.rawQuery(
-            "SELECT id FROM categorias WHERE nombre = ?",
-            arrayOf(nombreCategoria)
-        )
-
-        var categoriaId = -1
-        if (cursorCat.moveToFirst()) {
-            categoriaId = cursorCat.getInt(cursorCat.getColumnIndexOrThrow("id"))
-        }
-        cursorCat.close()
-
-        if (categoriaId != -1) {
-            // Si encontramos la categoría, buscamos los productos
-            val cursorProd = db.rawQuery(
-                "SELECT id, nombre, descripcion, precio, stock, imagen, categoria_id FROM productos WHERE categoria_id = ? AND stock > 0 ORDER BY RANDOM() LIMIT 4",
-                arrayOf(categoriaId.toString())
-            )
-
-            if (cursorProd.moveToFirst()) {
-                do {
-                    lista.add(
-                        Producto(
-                            cursorProd.getInt(cursorProd.getColumnIndexOrThrow("id")),
-                            cursorProd.getString(cursorProd.getColumnIndexOrThrow("nombre")),
-                            cursorProd.getString(cursorProd.getColumnIndexOrThrow("descripcion")),
-                            cursorProd.getDouble(cursorProd.getColumnIndexOrThrow("precio")),
-                            cursorProd.getInt(cursorProd.getColumnIndexOrThrow("stock")),
-                            cursorProd.getString(cursorProd.getColumnIndexOrThrow("imagen")),
-                            cursorProd.getInt(cursorProd.getColumnIndexOrThrow("categoria_id"))
-                        )
-                    )
-                } while (cursorProd.moveToNext())
-            }
-            cursorProd.close()
-        }
-
-        db.close()
-        return lista
-    }
-
     // --- Métodos para el Carrito ---
 
     fun obtenerCarrito(usuarioId: Int): List<CartItem> {
@@ -240,6 +193,18 @@ class miSQLiteHelper(context: Context) : SQLiteOpenHelper(context, "ukey.db", nu
         cursor.close()
         db.close()
         return lista
+    }
+
+    fun obtenerCantidadTotalCarrito(usuarioId: Int): Int {
+        val db = this.readableDatabase
+        val cursor = db.rawQuery("SELECT SUM(cantidad) FROM carrito WHERE usuario_id = ?", arrayOf(usuarioId.toString()))
+        var total = 0
+        if (cursor.moveToFirst()) {
+            total = cursor.getInt(0)
+        }
+        cursor.close()
+        db.close()
+        return total
     }
 
     fun agregarAlCarrito(usuarioId: Int, productoId: Int, cantidad: Int): Long {
@@ -344,7 +309,6 @@ class miSQLiteHelper(context: Context) : SQLiteOpenHelper(context, "ukey.db", nu
 
     // --- Métodos para el Panel de Administración ---
 
-    // Devuelve todos los productos con el nombre de su categoría (JOIN)
     fun obtenerTodosProductos(): List<ProductoAdmin> {
         val lista = mutableListOf<ProductoAdmin>()
         val db = this.readableDatabase
@@ -377,7 +341,6 @@ class miSQLiteHelper(context: Context) : SQLiteOpenHelper(context, "ukey.db", nu
         return lista
     }
 
-    // Actualiza el stock de un producto (usado al vender o reponer)
     fun actualizarStock(productoId: Int, nuevoStock: Int): Int {
         val db = this.writableDatabase
         val values = ContentValues().apply {
@@ -386,5 +349,48 @@ class miSQLiteHelper(context: Context) : SQLiteOpenHelper(context, "ukey.db", nu
         val result = db.update("productos", values, "id = ?", arrayOf(productoId.toString()))
         db.close()
         return result
+    }
+
+    fun obtenerProductosPorCategoria(nombreCategoria: String): List<Producto> {
+        val lista = mutableListOf<Producto>()
+        val db = this.readableDatabase
+
+        val cursorCat = db.rawQuery(
+            "SELECT id FROM categorias WHERE nombre = ?",
+            arrayOf(nombreCategoria)
+        )
+
+        var categoriaId = -1
+        if (cursorCat.moveToFirst()) {
+            categoriaId = cursorCat.getInt(cursorCat.getColumnIndexOrThrow("id"))
+        }
+        cursorCat.close()
+
+        if (categoriaId != -1) {
+            val cursorProd = db.rawQuery(
+                "SELECT id, nombre, descripcion, precio, stock, imagen, categoria_id FROM productos WHERE categoria_id = ? AND stock > 0 ORDER BY RANDOM() LIMIT 4",
+                arrayOf(categoriaId.toString())
+            )
+
+            if (cursorProd.moveToFirst()) {
+                do {
+                    lista.add(
+                        Producto(
+                            cursorProd.getInt(cursorProd.getColumnIndexOrThrow("id")),
+                            cursorProd.getString(cursorProd.getColumnIndexOrThrow("nombre")),
+                            cursorProd.getString(cursorProd.getColumnIndexOrThrow("descripcion")),
+                            cursorProd.getDouble(cursorProd.getColumnIndexOrThrow("precio")),
+                            cursorProd.getInt(cursorProd.getColumnIndexOrThrow("stock")),
+                            cursorProd.getString(cursorProd.getColumnIndexOrThrow("imagen")),
+                            cursorProd.getInt(cursorProd.getColumnIndexOrThrow("categoria_id"))
+                        )
+                    )
+                } while (cursorProd.moveToNext())
+            }
+            cursorProd.close()
+        }
+
+        db.close()
+        return lista
     }
 }
